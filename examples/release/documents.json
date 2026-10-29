@@ -1,0 +1,28 @@
+[
+  {
+    "id": "5effa79e-298c-4e38-a0ff-e8dd4446a25b",
+    "type": "Document",
+    "revision": 1,
+    "framework": "455093de-f223-46c0-9484-367676c348e3",
+    "title": "Example Mathematics Curriculum, Grades 7–9",
+    "language": "en",
+    "publisher": "Example Department of Education",
+    "issued": "2025-01-15",
+    "versionLabel": "2025",
+    "rights": "Fictional example text, written for the OpenConceptGraph specification.",
+    "checks": [
+      {
+        "method": "machine",
+        "date": "2026-10-20"
+      },
+      {
+        "method": "person",
+        "pages": [
+          12
+        ],
+        "date": "2026-10-22",
+        "by": "A. Example"
+      }
+    ]
+  }
+]

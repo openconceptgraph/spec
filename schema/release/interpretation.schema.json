@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/release/interpretation.schema.json",
+  "title": "OpenConceptGraph release: the interpretation layer",
+  "description": "A base's reading of the curriculum: concepts, families, levels, typical mistakes and the links between them. Nothing here is official; trust is earned through qualified reviewers' judgements.",
+  "$defs": {
+    "family": {
+      "description": "A planning-grain group of concepts: \"Integers\".",
+      "type": "object",
+      "required": ["id", "type", "revision", "framework", "code", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Family" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "code": { "$ref": "../common.schema.json#/$defs/code" },
+        "title": { "$ref": "../common.schema.json#/$defs/langString" },
+        "description": { "$ref": "../common.schema.json#/$defs/langString" },
+        "status": { "$ref": "../common.schema.json#/$defs/status" }
+      }
+    },
+    "concept": {
+      "description": "The atomic teachable unit: taught in one go, checked with a few short questions, with at least one typical way of going wrong. Split where the governing rule and the typical mistake change; siblings that differ only by a parameter are one concept with levels.",
+      "type": "object",
+      "required": ["id", "type", "revision", "framework", "code", "aliases", "title", "gateway", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Concept" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "code": { "$ref": "../common.schema.json#/$defs/code" },
+        "aliases": { "type": "array", "uniqueItems": true, "items": { "$ref": "../common.schema.json#/$defs/code" } },
+        "title": {
+          "description": "The concept as an action on an object, with its conditions: \"subtract integers using a number line\".",
+          "$ref": "../common.schema.json#/$defs/langString"
+        },
+        "description": { "$ref": "../common.schema.json#/$defs/langString" },
+        "kind": { "enum": ["fact", "category", "procedure", "principle"] },
+        "gateway": {
+          "description": "One of the few concepts per grade that a diagnosis turns on.",
+          "type": "boolean"
+        },
+        "status": { "$ref": "../common.schema.json#/$defs/status" }
+      }
+    },
+    "level": {
+      "description": "One of the ordered variants of a concept that differ only by a parameter, such as the number range.",
+      "type": "object",
+      "required": ["id", "type", "revision", "concept", "ordinal", "title", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Level" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "concept": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "ordinal": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "../common.schema.json#/$defs/langString" },
+        "description": { "$ref": "../common.schema.json#/$defs/langString" },
+        "status": { "$ref": "../common.schema.json#/$defs/status" }
+      }
+    },
+    "misconception": {
+      "description": "A typical wrong rule, written as a rule: \"subtracting a negative number makes the answer smaller\".",
+      "type": "object",
+      "required": ["id", "type", "revision", "framework", "code", "statement", "source", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Misconception" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "code": { "$ref": "../common.schema.json#/$defs/code" },
+        "statement": { "$ref": "../common.schema.json#/$defs/langString" },
+        "example": { "$ref": "../common.schema.json#/$defs/langString" },
+        "source": {
+          "description": "Where the mistake is documented. Null means unsourced, and consumers should say so.",
+          "$ref": "../common.schema.json#/$defs/uuidOrNull"
+        },
+        "status": { "$ref": "../common.schema.json#/$defs/status" }
+      }
+    },
+    "link": {
+      "description": "A typed, directed link. Every link has a source and a status. needs: concept → the concept it needs (the target must be secure before the origin can be learnt); never loops. hinders: misconception → the concept it blocks. defines: statement → a concept it defines, the concept's word-for-word source. part-of: concept → its family. replaced-by: a retired object → its replacement, of the same kind.",
+      "type": "object",
+      "required": ["id", "type", "revision", "linkType", "from", "fromKind", "to", "toKind", "source", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Link" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "linkType": { "enum": ["needs", "hinders", "defines", "part-of", "replaced-by"] },
+        "from": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "fromKind": { "$ref": "../common.schema.json#/$defs/objectKind" },
+        "to": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "toKind": { "$ref": "../common.schema.json#/$defs/objectKind" },
+        "source": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "status": { "$ref": "../common.schema.json#/$defs/status" },
+        "confidence": {
+          "description": "For an AI proposal: the share of drafting runs that agreed, from 0 to 1.",
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "rationale": { "$ref": "../common.schema.json#/$defs/langString" }
+      }
+    },
+    "families": { "type": "array", "items": { "$ref": "#/$defs/family" } },
+    "concepts": { "type": "array", "items": { "$ref": "#/$defs/concept" } },
+    "levels": { "type": "array", "items": { "$ref": "#/$defs/level" } },
+    "misconceptions": { "type": "array", "items": { "$ref": "#/$defs/misconception" } },
+    "links": { "type": "array", "items": { "$ref": "#/$defs/link" } }
+  }
+}

@@ -1,0 +1,25 @@
+[
+  {
+    "id": "8c87d3cd-9fe0-4aa7-8a21-a08bf10530bc",
+    "type": "OverlayPlacement",
+    "plan": "32b263e6-eb48-49d3-823d-bec071001364",
+    "artefact": "915d1c6f-7c53-41cc-a788-0e11da0b9863",
+    "educationLevel": "f27fdbdc-6cfe-4119-978d-7742e5b03942",
+    "term": 1,
+    "weekStart": 1,
+    "weekEnd": 1,
+    "ordinal": 1
+  },
+  {
+    "id": "39c40702-df16-4257-88d8-bd7094492fe8",
+    "type": "OverlayPlacement",
+    "plan": "32b263e6-eb48-49d3-823d-bec071001364",
+    "artefact": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "educationLevel": "f27fdbdc-6cfe-4119-978d-7742e5b03942",
+    "term": 1,
+    "weekStart": 2,
+    "weekEnd": 2,
+    "hours": 1,
+    "ordinal": 2
+  }
+]

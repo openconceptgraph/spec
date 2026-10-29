@@ -1,0 +1,199 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "@base": "https://openconceptgraph.org/id/",
+    "@vocab": "https://openconceptgraph.org/ns#",
+    "ocg": "https://openconceptgraph.org/ns#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "id": "@id",
+    "type": "@type",
+    "title": {
+      "@id": "dcterms:title",
+      "@container": "@language"
+    },
+    "description": {
+      "@id": "dcterms:description",
+      "@container": "@language"
+    },
+    "statement": {
+      "@id": "ocg:statement",
+      "@container": "@language"
+    },
+    "example": {
+      "@id": "skos:example",
+      "@container": "@language"
+    },
+    "rationale": {
+      "@id": "ocg:rationale",
+      "@container": "@language"
+    },
+    "note": {
+      "@id": "skos:note",
+      "@container": "@language"
+    },
+    "label": {
+      "@id": "ocg:label"
+    },
+    "language": {
+      "@id": "dcterms:language"
+    },
+    "publisher": {
+      "@id": "dcterms:publisher"
+    },
+    "issued": {
+      "@id": "dcterms:issued",
+      "@type": "xsd:date"
+    },
+    "rights": {
+      "@id": "dcterms:rights"
+    },
+    "url": {
+      "@id": "ocg:url",
+      "@type": "@id"
+    },
+    "code": {
+      "@id": "skos:notation"
+    },
+    "aliases": {
+      "@id": "skos:altLabel"
+    },
+    "framework": {
+      "@id": "ocg:framework",
+      "@type": "@id"
+    },
+    "document": {
+      "@id": "ocg:document",
+      "@type": "@id"
+    },
+    "node": {
+      "@id": "ocg:node",
+      "@type": "@id"
+    },
+    "parent": {
+      "@id": "ocg:parent",
+      "@type": "@id"
+    },
+    "educationLevel": {
+      "@id": "ocg:educationLevel",
+      "@type": "@id"
+    },
+    "educationLevels": {
+      "@id": "ocg:educationLevel",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "teachingPlan": {
+      "@id": "ocg:teachingPlan",
+      "@type": "@id"
+    },
+    "target": {
+      "@id": "ocg:target",
+      "@type": "@id"
+    },
+    "concept": {
+      "@id": "ocg:concept",
+      "@type": "@id"
+    },
+    "source": {
+      "@id": "dcterms:source",
+      "@type": "@id"
+    },
+    "from": {
+      "@id": "ocg:from",
+      "@type": "@id"
+    },
+    "to": {
+      "@id": "ocg:to",
+      "@type": "@id"
+    },
+    "object": {
+      "@id": "ocg:object",
+      "@type": "@id"
+    },
+    "replacedBy": {
+      "@id": "dcterms:isReplacedBy",
+      "@type": "@id"
+    },
+    "artefact": {
+      "@id": "ocg:artefact",
+      "@type": "@id"
+    },
+    "plan": {
+      "@id": "ocg:plan",
+      "@type": "@id"
+    },
+    "linkType": {
+      "@id": "ocg:linkType",
+      "@type": "@vocab"
+    },
+    "alignmentType": {
+      "@id": "ocg:alignmentType",
+      "@type": "@vocab"
+    },
+    "statementType": {
+      "@id": "ocg:statementType",
+      "@type": "@vocab"
+    },
+    "status": {
+      "@id": "ocg:status",
+      "@type": "@vocab"
+    },
+    "kind": {
+      "@id": "ocg:kind"
+    },
+    "revision": {
+      "@id": "ocg:revision",
+      "@type": "xsd:integer"
+    },
+    "ordinal": {
+      "@id": "ocg:ordinal",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "ocg:page",
+      "@type": "xsd:integer"
+    },
+    "iscedLevel": {
+      "@id": "ocg:iscedLevel",
+      "@type": "xsd:integer"
+    },
+    "hours": {
+      "@id": "ocg:hours",
+      "@type": "xsd:decimal"
+    },
+    "confidence": {
+      "@id": "ocg:confidence",
+      "@type": "xsd:decimal"
+    },
+    "gateway": {
+      "@id": "ocg:gateway",
+      "@type": "xsd:boolean"
+    },
+    "revise": {
+      "@id": "ocg:revise",
+      "@type": "xsd:boolean"
+    },
+    "needs": "ocg:needs",
+    "hinders": "ocg:hinders",
+    "defines": "ocg:defines",
+    "part-of": "ocg:partOf",
+    "replaced-by": "ocg:replacedBy",
+    "teaches": "ocg:teaches",
+    "assumes": "ocg:assumes",
+    "tests": "ocg:tests",
+    "reveals": "ocg:reveals",
+    "backfills": "ocg:backfills",
+    "covers": "ocg:covers",
+    "Source": {
+      "@id": "ocg:Source",
+      "@context": {
+        "statement": {
+          "@id": "ocg:sourceStatement",
+          "@type": "@id"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,140 @@
+[
+  {
+    "id": "028c55e7-29d3-460b-9cd1-2e6f4387b898",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "defines",
+    "from": "d5a0b009-d82d-40ec-a449-5254e4794bbd",
+    "fromKind": "statement",
+    "to": "d78c4c37-1b06-477c-a350-af5973a64790",
+    "toKind": "concept",
+    "source": "5dd709af-13f1-4da1-81be-8b113dd7127a",
+    "status": "confirmed"
+  },
+  {
+    "id": "e870d374-eed8-44c8-b2a2-98583543ccc7",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "defines",
+    "from": "597dfb83-b667-4f40-b92b-071ef992ac83",
+    "fromKind": "statement",
+    "to": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "toKind": "concept",
+    "source": "5dd709af-13f1-4da1-81be-8b113dd7127a",
+    "status": "confirmed"
+  },
+  {
+    "id": "74a9378d-829f-455e-b617-9cc4b6a50da4",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "defines",
+    "from": "597dfb83-b667-4f40-b92b-071ef992ac83",
+    "fromKind": "statement",
+    "to": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "toKind": "concept",
+    "source": "5dd709af-13f1-4da1-81be-8b113dd7127a",
+    "status": "confirmed"
+  },
+  {
+    "id": "36fbf59b-3779-4940-b362-8dbef0523666",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "needs",
+    "from": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "fromKind": "concept",
+    "to": "d78c4c37-1b06-477c-a350-af5973a64790",
+    "toKind": "concept",
+    "source": "5dd709af-13f1-4da1-81be-8b113dd7127a",
+    "status": "confirmed",
+    "rationale": {
+      "en": "Adding integers on a number line relies on their order."
+    }
+  },
+  {
+    "id": "a129acd5-05b6-4cb8-b4b4-ae22bd7cadf7",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "needs",
+    "from": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "fromKind": "concept",
+    "to": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "toKind": "concept",
+    "source": "8222d267-ab9e-43b8-b7b7-10c793ae376f",
+    "status": "confirmed",
+    "rationale": {
+      "en": "The clarification note develops subtraction through addition on a number line."
+    }
+  },
+  {
+    "id": "037a53e0-6e6b-4f69-b20f-9fc0cd59c37b",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "hinders",
+    "from": "a59a07d3-9a28-40cc-9cb0-b99ee2b0be22",
+    "fromKind": "misconception",
+    "to": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "toKind": "concept",
+    "source": "2978706c-a20f-49bd-aeda-abf762477500",
+    "status": "confirmed"
+  },
+  {
+    "id": "fdb9f369-7526-4dbb-870d-47ab49234eda",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "hinders",
+    "from": "f5e87ca0-7e80-400f-8c0d-cf057f0b540a",
+    "fromKind": "misconception",
+    "to": "d78c4c37-1b06-477c-a350-af5973a64790",
+    "toKind": "concept",
+    "source": "2978706c-a20f-49bd-aeda-abf762477500",
+    "status": "confirmed"
+  },
+  {
+    "id": "0f49f3ab-6d77-45fb-8732-4236ba47b70f",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "hinders",
+    "from": "7da48245-3f86-4bd2-abbc-fc3d4241b19f",
+    "fromKind": "misconception",
+    "to": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "toKind": "concept",
+    "source": "1ad31b72-1783-45ce-9e03-9e66d7dfce2a",
+    "status": "confirmed"
+  },
+  {
+    "id": "2049c8ab-3997-49f4-86f3-4c95460a6fab",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "part-of",
+    "from": "d78c4c37-1b06-477c-a350-af5973a64790",
+    "fromKind": "concept",
+    "to": "be812963-8ed4-437e-b830-2052bf792795",
+    "toKind": "family",
+    "source": "1ad31b72-1783-45ce-9e03-9e66d7dfce2a",
+    "status": "confirmed"
+  },
+  {
+    "id": "7ffeb10e-318e-44b0-9534-ad783b8f0153",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "part-of",
+    "from": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "fromKind": "concept",
+    "to": "be812963-8ed4-437e-b830-2052bf792795",
+    "toKind": "family",
+    "source": "1ad31b72-1783-45ce-9e03-9e66d7dfce2a",
+    "status": "confirmed"
+  },
+  {
+    "id": "f0574f1c-2dd1-4d33-b492-6046b4fdc4e7",
+    "type": "Link",
+    "revision": 1,
+    "linkType": "part-of",
+    "from": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "fromKind": "concept",
+    "to": "be812963-8ed4-437e-b830-2052bf792795",
+    "toKind": "family",
+    "source": "1ad31b72-1783-45ce-9e03-9e66d7dfce2a",
+    "status": "confirmed"
+  }
+]

@@ -1,0 +1,42 @@
+{
+  "spec": "0.1.0",
+  "kind": "overlay",
+  "client": {
+    "namespace": "example-learning",
+    "name": "Example Learning"
+  },
+  "base": {
+    "slug": "example/mathematics",
+    "framework": "455093de-f223-46c0-9484-367676c348e3",
+    "version": "0.1.0",
+    "manifestSha256": "316a9dd8558723da4bc25eb9d4366aa5aaea604b6f2d070ca01a32c3f8813dc1"
+  },
+  "updated": "2026-10-29",
+  "files": {
+    "profile": {
+      "path": "profile.json",
+      "sha256": "9658d41efcc26e3053e57013c7a1e6a298651caed882c8a666ce349ef9db212f",
+      "count": 1
+    },
+    "artefacts": {
+      "path": "artefacts.json",
+      "sha256": "44ace145bb45c5e46c65d7bb66e4a14afd5ab1cc3772c825605b4e60d4a37e13",
+      "count": 3
+    },
+    "alignments": {
+      "path": "alignments.json",
+      "sha256": "0196b6324178a452c641b669f2cec3c76efe6ecfa80617594da7545610d2d067",
+      "count": 6
+    },
+    "plans": {
+      "path": "plans.json",
+      "sha256": "e6a6d0db9f8d7e0e17fdc843c335db9a7987331decf8a20db365adc325ffb0ee",
+      "count": 1
+    },
+    "placements": {
+      "path": "placements.json",
+      "sha256": "40f55c0259f5952cd25e55e7d1bbb7e2e5ccfc1049b308ab68883fb10d564150",
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,94 @@
+[
+  {
+    "id": "0bffb91a-b926-4395-8889-d197086ade47",
+    "type": "Alignment",
+    "artefact": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "alignmentType": "teaches",
+    "target": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "targetKind": "concept",
+    "source": {
+      "kind": "person",
+      "by": "Teacher C",
+      "date": "2026-10-27"
+    },
+    "status": "confirmed"
+  },
+  {
+    "id": "93da33df-d910-41d3-be0f-f94a4c2db8b5",
+    "type": "Alignment",
+    "artefact": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "alignmentType": "assumes",
+    "target": "a1180152-450b-4bcb-a3d8-0ed74a0e6f16",
+    "targetKind": "concept",
+    "source": {
+      "kind": "person",
+      "by": "Teacher C",
+      "date": "2026-10-27"
+    },
+    "status": "confirmed",
+    "rationale": {
+      "en": "The lesson adds integers without teaching how."
+    }
+  },
+  {
+    "id": "ef412d41-ab56-47b3-9701-2132617cdb46",
+    "type": "Alignment",
+    "artefact": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "alignmentType": "covers",
+    "target": "597dfb83-b667-4f40-b92b-071ef992ac83",
+    "targetKind": "statement",
+    "source": {
+      "kind": "ai",
+      "model": "example-model-1",
+      "promptVersion": "tag-v1",
+      "date": "2026-10-26"
+    },
+    "status": "proposed"
+  },
+  {
+    "id": "03b47a33-6060-434d-a2b5-83cc2360c8f4",
+    "type": "Alignment",
+    "artefact": "40797efb-eaab-4ec2-88da-263dcf8ae856",
+    "alignmentType": "tests",
+    "target": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "targetKind": "concept",
+    "source": {
+      "kind": "ai",
+      "model": "example-model-1",
+      "promptVersion": "tag-v1",
+      "date": "2026-10-26"
+    },
+    "status": "confirmed"
+  },
+  {
+    "id": "f30cb815-b5f9-47bd-95b6-dba959ce2cfa",
+    "type": "Alignment",
+    "artefact": "40797efb-eaab-4ec2-88da-263dcf8ae856",
+    "part": "option B",
+    "alignmentType": "reveals",
+    "target": "a59a07d3-9a28-40cc-9cb0-b99ee2b0be22",
+    "targetKind": "misconception",
+    "source": {
+      "kind": "ai",
+      "model": "example-model-1",
+      "promptVersion": "tag-v1",
+      "date": "2026-10-26"
+    },
+    "status": "proposed"
+  },
+  {
+    "id": "7d6126c8-36e4-4b85-ba1d-2d4e18e973ea",
+    "type": "Alignment",
+    "artefact": "915d1c6f-7c53-41cc-a788-0e11da0b9863",
+    "alignmentType": "backfills",
+    "target": "c1d264ea-5015-498c-aaef-05111386d83c",
+    "targetKind": "level",
+    "source": {
+      "kind": "ai",
+      "model": "example-model-1",
+      "promptVersion": "tag-v1",
+      "date": "2026-10-26"
+    },
+    "status": "proposed"
+  }
+]

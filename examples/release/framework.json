@@ -1,0 +1,29 @@
+{
+  "id": "455093de-f223-46c0-9484-367676c348e3",
+  "type": "Framework",
+  "revision": 1,
+  "slug": "example/mathematics",
+  "title": {
+    "en": "Example Curriculum: Mathematics"
+  },
+  "jurisdiction": "ZZ",
+  "subject": "mathematics",
+  "publisher": "Example Department of Education",
+  "nodeTypes": [
+    "content-area",
+    "topic"
+  ],
+  "educationLevels": [
+    {
+      "id": "f27fdbdc-6cfe-4119-978d-7742e5b03942",
+      "type": "EducationLevel",
+      "revision": 1,
+      "code": "8",
+      "title": {
+        "en": "Grade 8"
+      },
+      "iscedLevel": 2,
+      "ordinal": 8
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "a59a07d3-9a28-40cc-9cb0-b99ee2b0be22",
+    "type": "Misconception",
+    "revision": 1,
+    "framework": "455093de-f223-46c0-9484-367676c348e3",
+    "code": "INT-03-M1",
+    "statement": {
+      "en": "subtracting a negative number makes the answer smaller"
+    },
+    "example": {
+      "en": "5 – (–3) = 2"
+    },
+    "source": "2978706c-a20f-49bd-aeda-abf762477500",
+    "status": "confirmed"
+  },
+  {
+    "id": "f5e87ca0-7e80-400f-8c0d-cf057f0b540a",
+    "type": "Misconception",
+    "revision": 1,
+    "framework": "455093de-f223-46c0-9484-367676c348e3",
+    "code": "INT-01-M1",
+    "statement": {
+      "en": "a negative number with a bigger digit is the bigger number"
+    },
+    "example": {
+      "en": "–7 > –2"
+    },
+    "source": "2978706c-a20f-49bd-aeda-abf762477500",
+    "status": "confirmed"
+  },
+  {
+    "id": "7da48245-3f86-4bd2-abbc-fc3d4241b19f",
+    "type": "Misconception",
+    "revision": 1,
+    "framework": "455093de-f223-46c0-9484-367676c348e3",
+    "code": "INT-02-M1",
+    "statement": {
+      "en": "adding a negative number makes the answer bigger"
+    },
+    "example": {
+      "en": "6 + (–2) = 8"
+    },
+    "source": "1ad31b72-1783-45ce-9e03-9e66d7dfce2a",
+    "status": "confirmed"
+  }
+]

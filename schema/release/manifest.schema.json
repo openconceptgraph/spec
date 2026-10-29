@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/release/manifest.schema.json",
+  "title": "OpenConceptGraph release manifest",
+  "description": "manifest.json at the root of a base release: what the release is, under what licence, and the hash of every file in it.",
+  "type": "object",
+  "required": ["spec", "kind", "base", "framework", "version", "released", "license", "attribution", "reviewPolicy", "files"],
+  "additionalProperties": false,
+  "properties": {
+    "spec": { "description": "The version of this specification the release conforms to.", "$ref": "../common.schema.json#/$defs/semver" },
+    "kind": { "const": "base-release" },
+    "base": { "description": "The framework's slug: \"za-caps/mathematics\".", "$ref": "../common.schema.json#/$defs/slug" },
+    "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+    "version": { "$ref": "../common.schema.json#/$defs/semver" },
+    "previous": { "description": "The release this one follows, if any.", "$ref": "../common.schema.json#/$defs/semver" },
+    "released": { "$ref": "../common.schema.json#/$defs/date" },
+    "title": { "$ref": "../common.schema.json#/$defs/langString" },
+    "notes": { "description": "Release notes.", "$ref": "../common.schema.json#/$defs/langString" },
+    "license": {
+      "type": "object",
+      "required": ["id", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "description": "An SPDX licence identifier: \"CC-BY-4.0\".", "type": "string", "minLength": 1 },
+        "url": { "$ref": "../common.schema.json#/$defs/url" }
+      }
+    },
+    "attribution": {
+      "description": "The credit lines a user of the release must carry, in full.",
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "reviewPolicy": {
+      "description": "The base's own rule for confirmation, which the validator checks every released object against.",
+      "type": "object",
+      "required": ["minReviewers"],
+      "additionalProperties": false,
+      "properties": {
+        "minReviewers": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "files": {
+      "type": "object",
+      "required": [
+        "framework",
+        "documents",
+        "nodes",
+        "statements",
+        "teachingPlans",
+        "placements",
+        "families",
+        "concepts",
+        "levels",
+        "misconceptions",
+        "links",
+        "sources",
+        "reviews",
+        "retired"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "framework": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "documents": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "nodes": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "statements": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "teachingPlans": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "placements": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "families": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "concepts": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "levels": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "misconceptions": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "links": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "sources": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "reviews": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "retired": { "$ref": "../common.schema.json#/$defs/fileEntry" }
+      }
+    }
+  }
+}

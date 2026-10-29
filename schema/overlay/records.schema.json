@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/overlay/records.schema.json",
+  "title": "OpenConceptGraph overlay records",
+  "description": "A client's own artefacts and how they align to a base release. An overlay is data, pinned to one base release; the base never holds client records. An artefact record identifies the client's artefact; it does not carry the artefact's content.",
+  "$defs": {
+    "namespace": {
+      "description": "The client's namespace, fixed at onboarding: \"example-learning\".",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "alignmentType": {
+      "description": "teaches: the artefact sets out to teach the concept. assumes: it relies on the concept without teaching it. tests: it checks the concept. reveals: choosing it (usually one wrong option) shows the misconception. backfills: it remedies a prerequisite the learner lacks. covers: it covers an official statement or heading directly.",
+      "enum": ["teaches", "assumes", "tests", "reveals", "backfills", "covers"]
+    },
+    "artefactKind": {
+      "description": "One kind of artefact the client has, defined at onboarding.",
+      "type": "object",
+      "required": ["kind", "label", "alignments"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+        "label": { "$ref": "../common.schema.json#/$defs/langString" },
+        "description": { "$ref": "../common.schema.json#/$defs/langString" },
+        "alignments": {
+          "description": "The alignment types an artefact of this kind may carry.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "#/$defs/alignmentType" }
+        },
+        "learningResourceType": {
+          "description": "The nearest schema.org/LRMI learningResourceType, where one fits: \"lesson plan\", \"video\", \"assessment item\".",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "profile": {
+      "description": "The client profile written at onboarding: who the client is and what kinds of artefact it has.",
+      "type": "object",
+      "required": ["type", "namespace", "name", "artefactKinds"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "const": "ClientProfile" },
+        "namespace": { "$ref": "#/$defs/namespace" },
+        "name": { "type": "string", "minLength": 1 },
+        "artefactKinds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/artefactKind" }
+        }
+      }
+    },
+    "artefact": {
+      "description": "One of the client's artefacts: a lesson, a video, a question. An artefact may sit inside another, as a question inside a lesson's exit ticket.",
+      "type": "object",
+      "required": ["id", "type", "namespace", "kind", "title", "language"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Artefact" },
+        "namespace": { "$ref": "#/$defs/namespace" },
+        "kind": { "type": "string", "minLength": 1 },
+        "code": { "description": "The client's own code for the artefact.", "$ref": "../common.schema.json#/$defs/code" },
+        "title": { "$ref": "../common.schema.json#/$defs/langString" },
+        "language": { "$ref": "../common.schema.json#/$defs/languageTag" },
+        "parent": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "ordinal": { "type": "integer" },
+        "url": { "$ref": "../common.schema.json#/$defs/url" },
+        "ref": {
+          "description": "The client's own reference, opaque to the overlay: a path, a content ID.",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "alignmentSource": {
+      "description": "Who proposed or confirmed the alignment: an AI run, a person, or an import from the client's own data.",
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": { "enum": ["ai", "person", "import"] },
+        "model": { "type": "string", "minLength": 1 },
+        "promptVersion": { "type": "string", "minLength": 1 },
+        "by": { "description": "For a person: the name they work under in the client's workspace.", "type": "string", "minLength": 1 },
+        "date": { "$ref": "../common.schema.json#/$defs/date" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "ai" } } }, "then": { "required": ["model", "promptVersion"] } },
+        { "if": { "properties": { "kind": { "const": "person" } } }, "then": { "required": ["by"] } }
+      ]
+    },
+    "alignment": {
+      "description": "A typed link from a client's artefact into the pinned base release. teaches, assumes, tests and backfills point at a concept or level; reveals at a misconception; covers at a statement or node.",
+      "type": "object",
+      "required": ["id", "type", "artefact", "alignmentType", "target", "targetKind", "source", "status"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Alignment" },
+        "artefact": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "part": {
+          "description": "Where in the artefact, when it is not the whole: \"option B\", \"slide 4\", \"02:15\".",
+          "type": "string",
+          "minLength": 1
+        },
+        "alignmentType": { "$ref": "#/$defs/alignmentType" },
+        "target": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "targetKind": { "enum": ["concept", "level", "misconception", "statement", "node"] },
+        "source": { "$ref": "#/$defs/alignmentSource" },
+        "status": { "$ref": "../common.schema.json#/$defs/status" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "rationale": { "$ref": "../common.schema.json#/$defs/langString" }
+      }
+    },
+    "plan": {
+      "description": "The client's own teaching sequence: its lessons in the order it teaches them.",
+      "type": "object",
+      "required": ["id", "type", "namespace", "slug", "title"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "OverlayPlan" },
+        "namespace": { "$ref": "#/$defs/namespace" },
+        "slug": { "$ref": "../common.schema.json#/$defs/slug" },
+        "title": { "$ref": "../common.schema.json#/$defs/langString" }
+      }
+    },
+    "placement": {
+      "description": "When the client's plan teaches one of its artefacts. The education level is the base's.",
+      "type": "object",
+      "required": ["id", "type", "plan", "artefact", "educationLevel", "ordinal"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "OverlayPlacement" },
+        "plan": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "artefact": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "educationLevel": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "term": { "type": "integer", "minimum": 1 },
+        "weekStart": { "type": "integer", "minimum": 1 },
+        "weekEnd": { "type": "integer", "minimum": 1 },
+        "hours": { "type": "number", "exclusiveMinimum": 0 },
+        "ordinal": { "type": "integer" }
+      }
+    },
+    "artefacts": { "type": "array", "items": { "$ref": "#/$defs/artefact" } },
+    "alignments": { "type": "array", "items": { "$ref": "#/$defs/alignment" } },
+    "plans": { "type": "array", "items": { "$ref": "#/$defs/plan" } },
+    "placements": { "type": "array", "items": { "$ref": "#/$defs/placement" } }
+  }
+}

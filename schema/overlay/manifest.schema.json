@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/overlay/manifest.schema.json",
+  "title": "OpenConceptGraph overlay manifest",
+  "description": "manifest.json at the root of an overlay: whose it is, the base release it is pinned to, and the hash of every file in it.",
+  "type": "object",
+  "required": ["spec", "kind", "client", "base", "updated", "files"],
+  "additionalProperties": false,
+  "properties": {
+    "spec": { "$ref": "../common.schema.json#/$defs/semver" },
+    "kind": { "const": "overlay" },
+    "client": {
+      "type": "object",
+      "required": ["namespace", "name"],
+      "additionalProperties": false,
+      "properties": {
+        "namespace": { "$ref": "records.schema.json#/$defs/namespace" },
+        "name": { "type": "string", "minLength": 1 }
+      }
+    },
+    "base": {
+      "description": "The base release the overlay is pinned to. Moving to another release is an explicit re-pin.",
+      "type": "object",
+      "required": ["slug", "framework", "version"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": { "$ref": "../common.schema.json#/$defs/slug" },
+        "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "version": { "$ref": "../common.schema.json#/$defs/semver" },
+        "manifestSha256": {
+          "description": "The hash of the base release's manifest.json, to pin the exact bundle.",
+          "$ref": "../common.schema.json#/$defs/sha256"
+        }
+      }
+    },
+    "version": { "description": "The overlay's own version, if the client keeps one.", "$ref": "../common.schema.json#/$defs/semver" },
+    "updated": { "$ref": "../common.schema.json#/$defs/date" },
+    "files": {
+      "type": "object",
+      "required": ["profile", "artefacts", "alignments", "plans", "placements"],
+      "additionalProperties": false,
+      "properties": {
+        "profile": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "artefacts": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "alignments": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "plans": { "$ref": "../common.schema.json#/$defs/fileEntry" },
+        "placements": { "$ref": "../common.schema.json#/$defs/fileEntry" }
+      }
+    }
+  }
+}

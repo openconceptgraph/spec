@@ -1,0 +1,17 @@
+[
+  {
+    "id": "144e5d56-e95d-41ff-a483-21c105f3b9df",
+    "type": "Placement",
+    "revision": 1,
+    "teachingPlan": "0349e99c-c5eb-494c-a05c-83a4f9079448",
+    "target": "741ffa90-c96d-4b4a-b0e9-d4878e628247",
+    "targetKind": "node",
+    "educationLevel": "f27fdbdc-6cfe-4119-978d-7742e5b03942",
+    "term": 1,
+    "weekStart": 1,
+    "weekEnd": 3,
+    "hours": 9,
+    "ordinal": 1,
+    "asPrinted": "INTEGERS"
+  }
+]

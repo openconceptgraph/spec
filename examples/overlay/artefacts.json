@@ -1,0 +1,41 @@
+[
+  {
+    "id": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "type": "Artefact",
+    "namespace": "example-learning",
+    "kind": "lesson",
+    "code": "EL-G8-L03",
+    "title": {
+      "en": "Lesson 3: Subtracting integers"
+    },
+    "language": "en",
+    "ordinal": 3,
+    "ref": "lessons/g8/03"
+  },
+  {
+    "id": "40797efb-eaab-4ec2-88da-263dcf8ae856",
+    "type": "Artefact",
+    "namespace": "example-learning",
+    "kind": "question",
+    "code": "EL-G8-L03-Q2",
+    "title": {
+      "en": "Lesson 3 exit ticket, question 2"
+    },
+    "language": "en",
+    "parent": "23f8f970-14e6-4447-9238-e83f5a8466de",
+    "ordinal": 2,
+    "ref": "lessons/g8/03/exit-ticket#2"
+  },
+  {
+    "id": "915d1c6f-7c53-41cc-a788-0e11da0b9863",
+    "type": "Artefact",
+    "namespace": "example-learning",
+    "kind": "short",
+    "code": "EL-SHORT-12",
+    "title": {
+      "en": "Short: integers on the number line"
+    },
+    "language": "en",
+    "url": "https://example.org/shorts/12"
+  }
+]

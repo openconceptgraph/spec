@@ -1,0 +1,24 @@
+[
+  {
+    "id": "836c2d63-5e83-40cc-bc1f-8017aa4c3fbc",
+    "type": "Node",
+    "revision": 1,
+    "document": "5effa79e-298c-4e38-a0ff-e8dd4446a25b",
+    "parent": null,
+    "nodeType": "content-area",
+    "code": "1",
+    "title": "Number",
+    "ordinal": 1
+  },
+  {
+    "id": "741ffa90-c96d-4b4a-b0e9-d4878e628247",
+    "type": "Node",
+    "revision": 1,
+    "document": "5effa79e-298c-4e38-a0ff-e8dd4446a25b",
+    "parent": "836c2d63-5e83-40cc-bc1f-8017aa4c3fbc",
+    "nodeType": "topic",
+    "code": "1.1",
+    "title": "Integers",
+    "ordinal": 1
+  }
+]

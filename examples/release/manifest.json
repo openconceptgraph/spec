@@ -1,0 +1,96 @@
+{
+  "spec": "0.1.0",
+  "kind": "base-release",
+  "base": "example/mathematics",
+  "framework": "455093de-f223-46c0-9484-367676c348e3",
+  "version": "0.1.0",
+  "released": "2026-10-29",
+  "title": {
+    "en": "Example Curriculum: Mathematics, Grade 8 Integers"
+  },
+  "notes": {
+    "en": "A fictional release showing every part of the specification."
+  },
+  "license": {
+    "id": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "attribution": [
+    "Example Curriculum: Mathematics, built to the OpenConceptGraph specification. Curriculum text fictional."
+  ],
+  "reviewPolicy": {
+    "minReviewers": 2
+  },
+  "files": {
+    "framework": {
+      "path": "framework.json",
+      "sha256": "d6821a0d06c93f083564db7b47132f62708550707313cf84da9d58fee6f53f51",
+      "count": 1
+    },
+    "documents": {
+      "path": "documents.json",
+      "sha256": "c9e5ac2418230c9cf9ae58f32811a02bcff169be87ee7476e6334d246d0b0768",
+      "count": 1
+    },
+    "nodes": {
+      "path": "nodes.json",
+      "sha256": "ec605af3b391c939cb587ac6f549704e83d1f5cf6d219052817b687c9174cdc3",
+      "count": 2
+    },
+    "statements": {
+      "path": "statements.json",
+      "sha256": "f60847b158fefc0311df146aea251d19703e1158299d20a3fe8be795ca267eac",
+      "count": 6
+    },
+    "teachingPlans": {
+      "path": "teaching-plans.json",
+      "sha256": "7af794a7d86acf0cb1b708d50643fbcc95b7cedcedcea5c3c2b038d3e14e9388",
+      "count": 1
+    },
+    "placements": {
+      "path": "placements.json",
+      "sha256": "d8c59705639b4cdc009e6fb468f115d01b693d7ca04545b3e6c7b123a1ba3c2e",
+      "count": 1
+    },
+    "families": {
+      "path": "families.json",
+      "sha256": "346fc31165dd697db9619888ab1c61f56c35b120a802fe5f837605cf6f652b57",
+      "count": 1
+    },
+    "concepts": {
+      "path": "concepts.json",
+      "sha256": "a4a34c94a4d9f8e14c11ed0bb820cb47719e3684c2a8aa9f5b46ee8fb52e724d",
+      "count": 3
+    },
+    "levels": {
+      "path": "levels.json",
+      "sha256": "41f87b7f1f4f021f6bc98649faedbf5bda502ce54f57f2fe0c499f0dbfe511b2",
+      "count": 2
+    },
+    "misconceptions": {
+      "path": "misconceptions.json",
+      "sha256": "0a57908896138d9363d64524618c3e955c0e22e66c56f2756192c144a19b3f2d",
+      "count": 3
+    },
+    "links": {
+      "path": "links.json",
+      "sha256": "6f3240b44a2f74a9b58dddd6a854c51016fe778aa049fca92b341ed6c427aaeb",
+      "count": 11
+    },
+    "sources": {
+      "path": "sources.json",
+      "sha256": "61158742d46798adac0136b61f6ca56e14e4302c1cb4c7f48ae581c1a7bb8e1c",
+      "count": 4
+    },
+    "reviews": {
+      "path": "reviews.json",
+      "sha256": "7a2b46f47921e636a49c2222da5938fb6e019ec6d96ff8ab17adb0d04faf52fe",
+      "count": 20
+    },
+    "retired": {
+      "path": "retired.json",
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "count": 0
+    }
+  }
+}

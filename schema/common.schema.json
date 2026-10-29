@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/common.schema.json",
+  "title": "OpenConceptGraph: shared definitions",
+  "$defs": {
+    "uuid": {
+      "description": "A canonical identifier: a version 4 UUID in lower case. Permanent and never reused.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+    },
+    "uuidOrNull": {
+      "oneOf": [{ "$ref": "#/$defs/uuid" }, { "type": "null" }]
+    },
+    "revision": {
+      "description": "Counts changes to the object's content. A review summary names the revision it judged.",
+      "type": "integer",
+      "minimum": 1
+    },
+    "languageTag": {
+      "description": "A BCP 47 language tag, such as en, af, zu or pt-BR.",
+      "type": "string",
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8})*$"
+    },
+    "langString": {
+      "description": "Authored text keyed by BCP 47 language tag, as a JSON-LD language map: {\"en\": \"Subtract integers\"}. Official text is never stored this way: a statement quotes one document, in that document's language.",
+      "type": "object",
+      "minProperties": 1,
+      "propertyNames": { "$ref": "#/$defs/languageTag" },
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "officialText": {
+      "description": "Text copied word for word from an official document, in the document's language.",
+      "type": "string",
+      "minLength": 1
+    },
+    "code": {
+      "description": "A human-readable label. It may gain aliases but never changes meaning; the UUID is the identity.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 80
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*(/[a-z0-9]+(-[a-z0-9]+)*)*$"
+    },
+    "semver": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)(-[0-9A-Za-z.-]+)?$"
+    },
+    "date": { "type": "string", "format": "date" },
+    "url": { "type": "string", "format": "uri" },
+    "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "status": {
+      "description": "Review status of an interpretation object or link. Only confirmed objects and links reach a public release.",
+      "enum": ["proposed", "confirmed", "rejected"]
+    },
+    "objectKind": {
+      "description": "Every kind of object a base publishes.",
+      "enum": [
+        "framework",
+        "education-level",
+        "document",
+        "node",
+        "statement",
+        "teaching-plan",
+        "placement",
+        "family",
+        "concept",
+        "level",
+        "misconception",
+        "link",
+        "source"
+      ]
+    },
+    "fileEntry": {
+      "type": "object",
+      "required": ["path", "sha256", "count"],
+      "additionalProperties": false,
+      "properties": {
+        "path": { "type": "string", "pattern": "^[a-z0-9-]+\\.json$" },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "count": { "description": "How many objects the file holds.", "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

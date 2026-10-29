@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openconceptgraph.org/spec/0.1/schema/release/provenance.schema.json",
+  "title": "OpenConceptGraph release: provenance",
+  "description": "Where every link and misconception comes from, what reviewers decided, and which objects have been retired.",
+  "$defs": {
+    "source": {
+      "description": "A citable origin. Every link and every sourced misconception cites one; a base's credibility is its sources.",
+      "type": "object",
+      "required": ["id", "type", "revision", "framework", "kind"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "type": { "const": "Source" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "kind": {
+          "description": "statement: the authority's own words, such as a prerequisite cell. publication: a research paper or diagnostic report. reviewer: a qualified reviewer's judgement. ai: an AI drafting run.",
+          "enum": ["statement", "publication", "reviewer", "ai"]
+        },
+        "statement": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "citation": { "type": "string", "minLength": 1 },
+        "url": { "$ref": "../common.schema.json#/$defs/url" },
+        "reviewer": { "description": "The public name the reviewer chose.", "type": "string", "minLength": 1 },
+        "model": { "type": "string", "minLength": 1 },
+        "promptVersion": { "type": "string", "minLength": 1 }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "statement" } } }, "then": { "required": ["statement"] } },
+        { "if": { "properties": { "kind": { "const": "publication" } } }, "then": { "required": ["citation"] } },
+        { "if": { "properties": { "kind": { "const": "reviewer" } } }, "then": { "required": ["reviewer"] } },
+        { "if": { "properties": { "kind": { "const": "ai" } } }, "then": { "required": ["model", "promptVersion"] } }
+      ]
+    },
+    "review": {
+      "description": "The published summary of the judgements on one object or link. The judgements themselves stay in the steward's append-only record; reviewers appear under the public names they chose.",
+      "type": "object",
+      "required": ["object", "objectKind", "revision", "status", "decided", "reviewers", "judgements"],
+      "additionalProperties": false,
+      "properties": {
+        "object": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "objectKind": { "$ref": "../common.schema.json#/$defs/objectKind" },
+        "revision": {
+          "description": "The revision of the object the judgements were made on.",
+          "$ref": "../common.schema.json#/$defs/revision"
+        },
+        "status": { "$ref": "../common.schema.json#/$defs/status" },
+        "decided": { "description": "When the status was reached.", "$ref": "../common.schema.json#/$defs/date" },
+        "reviewers": {
+          "description": "The public names of the reviewers whose current judgements decided the status.",
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "judgements": { "description": "How many judgements were recorded on this revision.", "type": "integer", "minimum": 1 }
+      }
+    },
+    "retired": {
+      "description": "An object no longer live. Its ID stays reserved for ever; where it was replaced, a replaced-by link points to the replacement.",
+      "type": "object",
+      "required": ["id", "kind", "retiredIn"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "kind": { "$ref": "../common.schema.json#/$defs/objectKind" },
+        "retiredIn": { "description": "The release that retired it.", "$ref": "../common.schema.json#/$defs/semver" },
+        "replacedBy": { "$ref": "../common.schema.json#/$defs/uuid" }
+      }
+    },
+    "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
+    "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
+    "retiredList": { "type": "array", "items": { "$ref": "#/$defs/retired" } }
+  }
+}

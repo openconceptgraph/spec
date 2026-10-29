@@ -1,0 +1,41 @@
+{
+  "type": "ClientProfile",
+  "namespace": "example-learning",
+  "name": "Example Learning",
+  "artefactKinds": [
+    {
+      "kind": "lesson",
+      "label": {
+        "en": "Lesson"
+      },
+      "alignments": [
+        "teaches",
+        "assumes",
+        "covers"
+      ],
+      "learningResourceType": "lesson plan"
+    },
+    {
+      "kind": "short",
+      "label": {
+        "en": "Short video"
+      },
+      "alignments": [
+        "teaches",
+        "backfills"
+      ],
+      "learningResourceType": "video"
+    },
+    {
+      "kind": "question",
+      "label": {
+        "en": "Exit-ticket question"
+      },
+      "alignments": [
+        "tests",
+        "reveals"
+      ],
+      "learningResourceType": "assessment item"
+    }
+  ]
+}
