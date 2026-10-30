@@ -42,7 +42,7 @@ Kinds are the client's own. A shared vocabulary of kinds will be agreed only onc
 | `backfills` | concept or level | It remedies a prerequisite the learner lacks. |
 | `covers` | statement or node | It covers official curriculum text directly. |
 
-An alignment's status is the client's own (`proposed`, `confirmed`, `rejected`). Its target must be in the pinned release, which holds only confirmed base objects.
+An alignment's status is the client's own (`proposed`, `confirmed`, `rejected`). Its target must be in the pinned release, which holds only confirmed base objects (a [draft bundle](release.md#draft-bundles) may also hold proposed ones).
 
 **Plans and placements.** A client's teaching sequence is a plan like any other. A placement says when it teaches one of the client's artefacts, using the base's education levels.
 
@@ -58,6 +58,8 @@ Because the alignments point at a reviewed graph, reports follow from the data a
 ## Pinning and re-pinning
 
 The manifest pins the base by slug, framework UUID and exact version, and optionally by the SHA-256 of the release's `manifest.json`. A newer release is adopted by an explicit re-pin. `replaced-by` links carry most alignments across, and the rest are listed for a person to decide ([identifiers-and-versions.md](identifiers-and-versions.md)).
+
+A pilot may pin a [draft bundle](release.md#draft-bundles) before the base's interpretation is confirmed. The validator checks the pin as for a release and warns that it is a draft. Re-pin to a release before anything aligned to it is published.
 
 ## Linked data
 

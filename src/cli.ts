@@ -8,7 +8,8 @@ import { SPEC_VERSION } from "./schemas.js";
 const USAGE = `ocg-validate: checks OpenConceptGraph bundles against spec ${SPEC_VERSION}
 
   ocg-validate release <dir>                     a base release
-  ocg-validate overlay <dir> [--base <dir>]      an overlay, and its pin to a base release
+  ocg-validate draft <dir>                       a draft bundle, which is never published
+  ocg-validate overlay <dir> [--base <dir>]      an overlay, and its pin to a base release or draft
   ocg-validate stamp <dir>                       rewrite manifest.json's file hashes and counts
 
 Exits 1 when there are errors. Warnings are printed but do not fail.`;
@@ -27,9 +28,10 @@ function main(argv: string[]): number {
     return command ? 0 : 2;
   }
   switch (command) {
-    case "release": {
-      const r = validateRelease(readBundle(dir));
-      print(`release ${dir}`, r);
+    case "release":
+    case "draft": {
+      const r = validateRelease(readBundle(dir), { draft: command === "draft" });
+      print(`${command} ${dir}`, r);
       return r.ok ? 0 : 1;
     }
     case "overlay": {
@@ -38,7 +40,7 @@ function main(argv: string[]): number {
       let pinned;
       if (baseDir) {
         const baseBundle = readBundle(baseDir);
-        const base = validateRelease(baseBundle);
+        const base = validateRelease(baseBundle, { draft: (baseBundle.manifest as { kind?: string } | undefined)?.kind === "base-draft" });
         if (!base.index) {
           print(`base release ${baseDir}`, base);
           console.log("The base release could not be read well enough to check the overlay against it.");

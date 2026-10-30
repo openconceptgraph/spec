@@ -56,6 +56,26 @@
         "judgements": { "description": "How many judgements were recorded on this revision.", "type": "integer", "minimum": 1 }
       }
     },
+    "draftReview": {
+      "description": "In a draft bundle, the review so far of one object or link: its status, and the public names of the reviewers whose current judgements confirm it. An object nobody has judged yet has no reviewers and no judgements.",
+      "type": "object",
+      "required": ["object", "objectKind", "revision", "status", "reviewers", "judgements"],
+      "additionalProperties": false,
+      "properties": {
+        "object": { "$ref": "../common.schema.json#/$defs/uuid" },
+        "objectKind": { "$ref": "../common.schema.json#/$defs/objectKind" },
+        "revision": { "$ref": "../common.schema.json#/$defs/revision" },
+        "status": { "$ref": "../common.schema.json#/$defs/status" },
+        "decided": { "description": "When the latest current judgement was made.", "$ref": "../common.schema.json#/$defs/date" },
+        "reviewers": {
+          "description": "The public names of the reviewers whose current judgements confirm it, so far.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "judgements": { "description": "How many current judgements there are on this revision.", "type": "integer", "minimum": 0 }
+      }
+    },
     "retired": {
       "description": "An object no longer live. Its ID stays reserved for ever; where it was replaced, a replaced-by link points to the replacement.",
       "type": "object",
@@ -70,6 +90,7 @@
     },
     "sources": { "type": "array", "items": { "$ref": "#/$defs/source" } },
     "reviews": { "type": "array", "items": { "$ref": "#/$defs/review" } },
+    "draftReviews": { "type": "array", "items": { "$ref": "#/$defs/draftReview" } },
     "retiredList": { "type": "array", "items": { "$ref": "#/$defs/retired" } }
   }
 }

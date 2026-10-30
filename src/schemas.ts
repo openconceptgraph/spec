@@ -7,7 +7,7 @@ import ajvFormats from "ajv-formats";
 import type { Report } from "./report.js";
 
 /** The specification version this validator implements. Releases and overlays name it in their manifest. */
-export const SPEC_VERSION = "0.1.0";
+export const SPEC_VERSION = "0.1.1";
 
 const SCHEMA_ROOT = "https://openconceptgraph.org/spec/0.1/schema/";
 

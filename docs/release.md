@@ -53,3 +53,15 @@ What a release lets anyone say follows from what it holds. For example:
 - "reviewed by two qualified reviewers" needs `reviewPolicy.minReviewers` of 2 and the review summaries to match.
 
 Claim only what the release supports.
+
+## Draft bundles
+
+A **draft bundle** has a release's layout, files and schemas, but it is not a release. It exists so that a client's private workspace, or a tool built on a base, can work with a base before its interpretation has been confirmed: a pilot that cannot wait for two reviewers, or a slice one reviewer has checked so far. It is **never published**: not in a base's public repository, not on a public server.
+
+- **Its manifest says so:** `kind` is `base-draft`, and its version is a pre-release marked draft, such as `0.1.0-draft.3`. `previous` names the release it builds on, if any.
+- **It may hold proposed interpretation** beside confirmed: families, concepts, levels, mistakes and links that reviewers have not yet confirmed, each with its status. It never holds anything rejected, retired or planted.
+- **Each object has its review so far** in `reviews.json`: its status, and the public names of the reviewers whose current judgements confirm it. An object nobody has judged has no reviewers, no judgements and no `decided` date. What a draft holds as `confirmed` must still meet the base's review policy.
+- **The transcription is the same** as a release's: in full.
+- **The validator accepts it only as a draft** (`ocg-validate draft <dir>`), and refuses it as a release. An overlay may pin a draft, with a warning; re-pin to a release before anything aligned to it is published.
+
+What a draft lets anyone say is narrower than a release. A concept a draft holds as proposed, with one reviewer so far, is "reviewed by one reviewer", not "confirmed"; one with no reviewers is "drafted, not reviewed".

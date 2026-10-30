@@ -149,6 +149,9 @@ export function validateOverlay(bundle: Bundle, base?: PinnedBase): Result {
   if (manifest.base.manifestSha256 && base.manifestRaw && sha256(base.manifestRaw) !== manifest.base.manifestSha256) {
     report.error("base-pin", "the pinned manifestSha256 does not match the release's manifest.json", { file: "manifest.json" });
   }
+  if (base.index.draft) {
+    report.warn("base-draft", `pinned to a draft bundle (${bm.version}), not a release: its interpretation may be unreviewed. Re-pin to a release before anything aligned to it is published`, { file: "manifest.json" });
+  }
   for (const al of alignments) {
     const actual = base.index.kinds.get(al.target);
     if (actual === undefined) {

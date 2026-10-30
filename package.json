@@ -1,6 +1,6 @@
 {
   "name": "@openconceptgraph/validate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Reference validator for the OpenConceptGraph specification: base releases and overlays.",
   "license": "Apache-2.0",

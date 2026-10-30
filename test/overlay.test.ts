@@ -85,3 +85,25 @@ describe("the pin to a base release", () => {
     expect(errorRules(r)).toContain("reference");
   });
 });
+
+describe("a pin to a draft bundle", () => {
+  it("is checked like a pin to a release, with a warning that it is not one", () => {
+    const draft = validateRelease(
+      edited(RELEASE_DIR, (_d, m) => {
+        m.kind = "base-draft";
+        m.version = "0.1.0-draft.1";
+      }),
+      { draft: true },
+    );
+    if (!draft.index) throw new Error("the draft did not validate");
+    const r = validateOverlay(
+      edited(OVERLAY_DIR, (_d, m) => {
+        m.base.version = "0.1.0-draft.1";
+        delete m.base.manifestSha256;
+      }),
+      { index: draft.index },
+    );
+    expect(r.errors).toEqual([]);
+    expect(r.warnings.map((w) => w.rule)).toEqual(["base-draft"]);
+  });
+});

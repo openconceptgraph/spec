@@ -4,7 +4,7 @@
 
 This repository is the standard: the data model, JSON Schemas, a JSON-LD context, the mapping to 1EdTech CASE 1.1, identifier and versioning rules, and a reference validator. A **base** is one curriculum for one subject built to it, such as [CAPS Mathematics](https://github.com/openconceptgraph/base-za-caps). The [platform](https://github.com/openconceptgraph/platform) is where a base is transcribed, drafted, reviewed and released.
 
-**Status: 0.1.0, a draft.** It describes what the first base needs, and it will change before 1.0.0.
+**Status: 0.1.1, a draft.** It describes what the first base needs, and it will change before 1.0.0.
 
 ## The idea in brief
 
@@ -22,7 +22,7 @@ Clients align their own artefacts to a base through **overlays**, pinned to a re
 |---|---|
 | [`docs/model.md`](docs/model.md) | The model: every object, field and link type |
 | [`docs/identifiers-and-versions.md`](docs/identifiers-and-versions.md) | Permanent UUIDs, codes, retirement, semver, pinning |
-| [`docs/release.md`](docs/release.md) | A base release: its files, manifest and what it may hold |
+| [`docs/release.md`](docs/release.md) | A base release: its files, manifest and what it may hold; draft bundles for private workspaces |
 | [`docs/overlay.md`](docs/overlay.md) | Overlays: client profile, artefacts, alignments, plans |
 | [`docs/case-mapping.md`](docs/case-mapping.md) | How a release maps to CASE 1.1 |
 | [`docs/validation.md`](docs/validation.md) | Every rule the validator checks |

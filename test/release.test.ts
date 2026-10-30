@@ -208,3 +208,62 @@ describe("findCycles", () => {
     expect(findCycles([["a", "b"], ["b", "c"], ["c", "a"], ["c", "d"]])).toEqual([["a", "b", "c", "a"]]);
   });
 });
+
+describe("a draft bundle", () => {
+  /** The example release as a draft: one concept still proposed, reviewed by one reviewer so far, and one nobody has judged. */
+  const asDraft = (more: (data: Record<string, any>, manifest: any) => void = () => {}) =>
+    edited(RELEASE_DIR, (d, m) => {
+      m.kind = "base-draft";
+      m.version = "0.1.0-draft.1";
+      const [first, second] = [d.concepts[0], d.concepts[1]];
+      first.status = "proposed";
+      Object.assign(d.reviews.find((r: any) => r.object === first.id), { status: "proposed", reviewers: ["A. Example"], judgements: 1 });
+      second.status = "proposed";
+      const review = d.reviews.find((r: any) => r.object === second.id);
+      delete review.decided;
+      Object.assign(review, { status: "proposed", reviewers: [], judgements: 0 });
+      more(d, m);
+    });
+
+  it("holds proposed interpretation with its review so far, checked as a draft", () => {
+    const r = validateRelease(asDraft(), { draft: true });
+    expect(r.errors).toEqual([]);
+    expect(r.index?.draft).toBe(true);
+  });
+
+  it("is never accepted as a release, nor a release as a draft", () => {
+    expect(errorRules(validateRelease(asDraft()))).toEqual(["bundle-kind"]);
+    expect(errorRules(validateRelease(readBundle(RELEASE_DIR), { draft: true }))).toEqual(["bundle-kind"]);
+  });
+
+  it("carries a version marked draft, and a release never does", () => {
+    expect(errorRules(validateRelease(asDraft((_d, m) => (m.version = "0.1.1")), { draft: true }))).toContain("schema");
+    expect(errorRules(validateRelease(edited(RELEASE_DIR, (_d, m) => (m.version = "0.1.0-draft.1"))))).toContain("schema");
+  });
+
+  it("holds nothing rejected", () => {
+    const r = validateRelease(
+      asDraft((d) => {
+        d.concepts[2].status = "rejected";
+        d.reviews.find((x: any) => x.object === d.concepts[2].id).status = "rejected";
+      }),
+      { draft: true },
+    );
+    expect(errorRules(r)).toEqual(["draft-status"]);
+  });
+
+  it("gives each object's review the object's own status", () => {
+    const r = validateRelease(asDraft((d) => (d.reviews.find((x: any) => x.object === d.concepts[0].id).status = "confirmed")), { draft: true });
+    expect(errorRules(r)).toEqual(["review-coverage"]);
+  });
+
+  it("still holds what it calls confirmed to the base's review policy", () => {
+    const r = validateRelease(asDraft((d) => (d.reviews.find((x: any) => x.object === d.concepts[2].id).reviewers = ["A. Example"])), { draft: true });
+    expect(errorRules(r)).toEqual(["review-coverage"]);
+  });
+
+  it("keeps a release's review summaries strict", () => {
+    const r = validateRelease(edited(RELEASE_DIR, (d) => (d.reviews[0].reviewers = [])));
+    expect(errorRules(r)).toContain("schema");
+  });
+});

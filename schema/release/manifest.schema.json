@@ -2,17 +2,20 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://openconceptgraph.org/spec/0.1/schema/release/manifest.schema.json",
   "title": "OpenConceptGraph release manifest",
-  "description": "manifest.json at the root of a base release: what the release is, under what licence, and the hash of every file in it.",
+  "description": "manifest.json at the root of a base release, or of a draft bundle: what it is, under what licence, and the hash of every file in it.",
   "type": "object",
   "required": ["spec", "kind", "base", "framework", "version", "released", "license", "attribution", "reviewPolicy", "files"],
   "additionalProperties": false,
   "properties": {
     "spec": { "description": "The version of this specification the release conforms to.", "$ref": "../common.schema.json#/$defs/semver" },
-    "kind": { "const": "base-release" },
+    "kind": {
+      "description": "base-release: a release, holding confirmed interpretation only. base-draft: a draft bundle for a private workspace, which may hold proposed interpretation with its review so far. A draft is never published.",
+      "enum": ["base-release", "base-draft"]
+    },
     "base": { "description": "The framework's slug: \"za-caps/mathematics\".", "$ref": "../common.schema.json#/$defs/slug" },
     "framework": { "$ref": "../common.schema.json#/$defs/uuid" },
-    "version": { "$ref": "../common.schema.json#/$defs/semver" },
-    "previous": { "description": "The release this one follows, if any.", "$ref": "../common.schema.json#/$defs/semver" },
+    "version": { "description": "A draft's version is a pre-release marked draft: \"0.1.0-draft.1\".", "$ref": "../common.schema.json#/$defs/semver" },
+    "previous": { "description": "The release this one follows, if any. A draft names the release it builds on.", "$ref": "../common.schema.json#/$defs/semver" },
     "released": { "$ref": "../common.schema.json#/$defs/date" },
     "title": { "$ref": "../common.schema.json#/$defs/langString" },
     "notes": { "description": "Release notes.", "$ref": "../common.schema.json#/$defs/langString" },
@@ -76,5 +79,12 @@
         "retired": { "$ref": "../common.schema.json#/$defs/fileEntry" }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "kind": { "const": "base-draft" } }, "required": ["kind"] },
+      "then": { "properties": { "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+-draft(\\.[0-9A-Za-z-]+)*$" } } },
+      "else": { "properties": { "version": { "type": "string", "not": { "type": "string", "pattern": "-draft" } } } }
+    }
+  ]
 }

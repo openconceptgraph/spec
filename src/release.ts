@@ -46,9 +46,11 @@ interface Link extends Interp {
 }
 interface Source extends Obj { framework: string; kind: string; statement?: string }
 interface Review { object: string; objectKind: string; revision: number; status: Status; reviewers: string[] }
+type BundleKind = "base-release" | "base-draft";
 interface Retired { id: string; kind: string; replacedBy?: string }
 interface Manifest {
   spec: string;
+  kind: BundleKind;
   base: string;
   framework: string;
   version: string;
@@ -86,6 +88,8 @@ const LINK_ENDPOINTS: Record<Exclude<Link["linkType"], "replaced-by">, [string, 
 /** The parsed contents of a release, once every file has passed its schema. */
 export interface ReleaseIndex {
   manifest: Manifest;
+  /** A draft bundle, not a release: it may hold proposed interpretation. */
+  draft: boolean;
   framework: Framework;
   /** Every live object's kind, by ID. */
   kinds: Map<string, string>;
@@ -102,13 +106,29 @@ export interface ReleaseValidation extends Result {
   index?: ReleaseIndex;
 }
 
-/** Validates a base release: every file against its schema, then the rules in docs/validation.md. */
-export function validateRelease(bundle: Bundle): ReleaseValidation {
+export interface ReleaseOptions {
+  /** Check a draft bundle (`kind: base-draft`) instead of a release. A draft is accepted only so. */
+  draft?: boolean;
+}
+
+/** Validates a base release, or with `draft` a draft bundle: every file against its schema, then the rules in docs/validation.md. */
+export function validateRelease(bundle: Bundle, options: ReleaseOptions = {}): ReleaseValidation {
   const report = new Report();
   if (!checkSchema(report, "release/manifest.schema.json", bundle.manifest, "manifest.json")) return report.result();
   const manifest = bundle.manifest as Manifest;
   if (!specSupported(manifest.spec)) {
     report.error("spec-version", `The release follows spec ${manifest.spec}; this validator implements 0.1.x`, { file: "manifest.json" });
+    return report.result();
+  }
+  const draft = manifest.kind === "base-draft";
+  if (draft !== Boolean(options.draft)) {
+    report.error(
+      "bundle-kind",
+      draft
+        ? "This is a draft bundle, not a release: it may hold interpretation nobody has reviewed. Check it as a draft (ocg-validate draft), and never publish it"
+        : "This is a release, not a draft bundle: check it as a release (ocg-validate release)",
+      { file: "manifest.json" },
+    );
     return report.result();
   }
 
@@ -129,18 +149,19 @@ export function validateRelease(bundle: Bundle): ReleaseValidation {
     const raw = bundle.raw?.[key];
     if (raw && sha256(raw) !== entry.sha256) report.error("manifest-files", `${entry.path}: its SHA-256 does not match the manifest`, { file: entry.path });
     if (countOf(data) !== entry.count) report.error("manifest-files", `${entry.path} holds ${countOf(data)} objects; the manifest says ${entry.count}`, { file: entry.path });
-    if (!checkSchema(report, RELEASE_FILES[key], data, entry.path)) schemasPass = false;
+    const schema = draft && key === "reviews" ? "release/provenance.schema.json#/$defs/draftReviews" : RELEASE_FILES[key];
+    if (!checkSchema(report, schema, data, entry.path)) schemasPass = false;
   }
   if (!schemasPass) {
     report.warn("skipped", "The release's own rules were not checked, because a file failed its schema");
     return report.result();
   }
 
-  const index = checkRules(report, manifest, bundle.data as Record<FileKey, unknown>);
+  const index = checkRules(report, manifest, bundle.data as Record<FileKey, unknown>, draft);
   return { ...report.result(), index };
 }
 
-function checkRules(report: Report, manifest: Manifest, d: Record<FileKey, unknown>): ReleaseIndex {
+function checkRules(report: Report, manifest: Manifest, d: Record<FileKey, unknown>, draft: boolean): ReleaseIndex {
   const f = (key: FileKey) => manifest.files[key]!.path;
   const framework = d.framework as Framework;
   const documents = d.documents as Document[];
@@ -303,7 +324,9 @@ function checkRules(report: Report, manifest: Manifest, d: Record<FileKey, unkno
   uniqueValues(report, f("nodes"), nodes.filter((n) => n.code).map((n) => [n.id, `${n.document} ${n.code}`]), "node code within a document");
   uniqueValues(report, f("statements"), statements.filter((s) => s.code).map((s) => [s.id, `${s.document} ${s.code}`]), "statement code within a document");
 
-  // released-status and review-coverage: only confirmed interpretation, each with its review.
+  // released-status and review-coverage: only confirmed interpretation, each with its review. A draft
+  // may hold proposed interpretation too, never rejected, each with its review so far; only what it
+  // holds as confirmed must meet the review policy.
   const reviewFor = new Map<string, Review>();
   for (const r of reviews) {
     if (reviewFor.has(r.object)) report.error("review-coverage", `${r.object} has more than one review summary`, { file: f("reviews"), id: r.object });
@@ -319,19 +342,21 @@ function checkRules(report: Report, manifest: Manifest, d: Record<FileKey, unkno
   ];
   for (const [kind, file, objs] of interpretation) {
     for (const o of objs) {
-      if (o.status !== "confirmed") report.error("released-status", `a ${kind} in a release must be confirmed; this one is ${o.status}`, { file, id: o.id });
+      if (draft && o.status === "rejected") report.error("draft-status", `a ${kind} in a draft bundle is proposed or confirmed; this one is rejected`, { file, id: o.id });
+      if (!draft && o.status !== "confirmed") report.error("released-status", `a ${kind} in a release must be confirmed; this one is ${o.status}`, { file, id: o.id });
       const r = reviewFor.get(o.id);
       if (!r) {
         report.error("review-coverage", `the ${kind} has no review summary`, { file, id: o.id });
         continue;
       }
-      if (r.status !== "confirmed") report.error("review-coverage", `its review summary says ${r.status}`, { file: f("reviews"), id: o.id });
+      if (r.status !== o.status) report.error("review-coverage", `its review summary says ${r.status}, but the ${kind} is ${o.status}`, { file: f("reviews"), id: o.id });
+      else if (!draft && r.status !== "confirmed") report.error("review-coverage", `its review summary says ${r.status}`, { file: f("reviews"), id: o.id });
       if (r.revision !== o.revision) report.error("review-coverage", `reviewed at revision ${r.revision}, but the ${kind} is at revision ${o.revision}`, { file: f("reviews"), id: o.id });
-      if (r.reviewers.length < manifest.reviewPolicy.minReviewers) report.error("review-coverage", `confirmed by ${r.reviewers.length} reviewer(s); the base's policy needs ${manifest.reviewPolicy.minReviewers}`, { file: f("reviews"), id: o.id });
+      if (o.status === "confirmed" && r.reviewers.length < manifest.reviewPolicy.minReviewers) report.error("review-coverage", `confirmed by ${r.reviewers.length} reviewer(s); the base's policy needs ${manifest.reviewPolicy.minReviewers}`, { file: f("reviews"), id: o.id });
     }
   }
 
-  return { manifest, framework, kinds, retired, concepts, misconceptions, statements, nodes };
+  return { manifest, draft, framework, kinds, retired, concepts, misconceptions, statements, nodes };
 }
 
 /** Reports every object whose parent chain loops back on itself. */
