@@ -10,8 +10,8 @@
       "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
     },
     "alignmentType": {
-      "description": "teaches: the artefact sets out to teach the concept. assumes: it relies on the concept without teaching it. tests: it checks the concept. reveals: choosing it (usually one wrong option) shows the misconception. backfills: it remedies a prerequisite the learner lacks. covers: it covers an official statement or heading directly.",
-      "enum": ["teaches", "assumes", "tests", "reveals", "backfills", "covers"]
+      "description": "teaches: the artefact sets out to teach the concept. assumes: it relies on the concept without teaching it. tests: it checks the concept. reveals: choosing it (usually one wrong option) shows the misconception. backfills: it remedies a prerequisite the learner lacks. covers: it covers an official statement or heading directly. explains: reference material (a source, a textbook section) explains the concept, so that what is taught can be grounded in it.",
+      "enum": ["teaches", "assumes", "tests", "reveals", "backfills", "covers", "explains"]
     },
     "artefactKind": {
       "description": "One kind of artefact the client has, defined at onboarding.",
@@ -93,7 +93,7 @@
       ]
     },
     "alignment": {
-      "description": "A typed link from a client's artefact into the pinned base release. teaches, assumes, tests and backfills point at a concept or level; reveals at a misconception; covers at a statement or node.",
+      "description": "A typed link from a client's artefact into the pinned base release. teaches, assumes, tests, backfills and explains point at a concept or level; reveals at a misconception; covers at a statement or node.",
       "type": "object",
       "required": ["id", "type", "artefact", "alignmentType", "target", "targetKind", "source", "status"],
       "additionalProperties": false,

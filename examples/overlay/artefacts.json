@@ -37,5 +37,17 @@
     },
     "language": "en",
     "url": "https://example.org/shorts/12"
+  },
+  {
+    "id": "7c1d7a9e-3b3f-4f0e-9a52-1f6c2b8e4d10",
+    "type": "Artefact",
+    "namespace": "example-learning",
+    "kind": "reference",
+    "code": "EL-REF-INT-1",
+    "title": {
+      "en": "Reference notes: subtracting an integer"
+    },
+    "language": "en",
+    "ref": "reference/integers/subtracting"
   }
 ]

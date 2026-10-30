@@ -15,18 +15,18 @@
   "files": {
     "profile": {
       "path": "profile.json",
-      "sha256": "9658d41efcc26e3053e57013c7a1e6a298651caed882c8a666ce349ef9db212f",
+      "sha256": "bfe883361bfc8fac705af28d430a910968bea80f9ec80d1496daacb08a310f17",
       "count": 1
     },
     "artefacts": {
       "path": "artefacts.json",
-      "sha256": "44ace145bb45c5e46c65d7bb66e4a14afd5ab1cc3772c825605b4e60d4a37e13",
-      "count": 3
+      "sha256": "467448bacf6e1c4523a974aac9f440be7511274b58a19504dd58de042e7a807a",
+      "count": 4
     },
     "alignments": {
       "path": "alignments.json",
-      "sha256": "0196b6324178a452c641b669f2cec3c76efe6ecfa80617594da7545610d2d067",
-      "count": 6
+      "sha256": "f731df342b9d3af390816fec7ff4eff8a7daf2ae3fb2ce7aca94aecbaf2fc78d",
+      "count": 7
     },
     "plans": {
       "path": "plans.json",

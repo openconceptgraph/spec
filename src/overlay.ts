@@ -3,7 +3,7 @@ import type { ReleaseIndex } from "./release.js";
 import { Report, type Result } from "./report.js";
 import { checkSchema, specSupported } from "./schemas.js";
 
-type AlignmentType = "teaches" | "assumes" | "tests" | "reveals" | "backfills" | "covers";
+type AlignmentType = "teaches" | "assumes" | "tests" | "reveals" | "backfills" | "covers" | "explains";
 
 interface Profile { namespace: string; artefactKinds: { kind: string; alignments: AlignmentType[] }[] }
 interface Artefact { id: string; namespace: string; kind: string; parent?: string; code?: string }
@@ -34,6 +34,7 @@ export const ALIGNMENT_TARGETS: Record<AlignmentType, string[]> = {
   backfills: ["concept", "level"],
   reveals: ["misconception"],
   covers: ["statement", "node"],
+  explains: ["concept", "level"],
 };
 
 /** The pinned base release, for resolving alignment targets. Without it, those checks are skipped with a warning. */

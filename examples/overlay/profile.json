@@ -36,6 +36,20 @@
         "reveals"
       ],
       "learningResourceType": "assessment item"
+    },
+    {
+      "kind": "reference",
+      "label": {
+        "en": "Reference material"
+      },
+      "description": {
+        "en": "Approved notes and sources that what is taught is grounded in."
+      },
+      "alignments": [
+        "explains",
+        "covers"
+      ],
+      "learningResourceType": "reference"
     }
   ]
 }

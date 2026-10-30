@@ -90,5 +90,19 @@
       "date": "2026-10-26"
     },
     "status": "proposed"
+  },
+  {
+    "id": "a4e0c9b2-6d1f-4c3a-8e7b-5f2d9c0a1b34",
+    "type": "Alignment",
+    "artefact": "7c1d7a9e-3b3f-4f0e-9a52-1f6c2b8e4d10",
+    "alignmentType": "explains",
+    "target": "036b1143-b23e-4dac-bd26-3aeefd699096",
+    "targetKind": "concept",
+    "source": {
+      "kind": "person",
+      "by": "Teacher C",
+      "date": "2026-10-27"
+    },
+    "status": "confirmed"
   }
 ]

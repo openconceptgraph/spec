@@ -4,6 +4,7 @@
 
 - **Draft bundles** (`kind: base-draft`): a release's layout for a private workspace or a tool built on a base, holding proposed interpretation beside confirmed, each object with its review so far. Its version is marked draft (`0.1.0-draft.1`); it is never published. `ocg-validate draft` checks one, and the validator refuses it as a release. New rules `bundle-kind` and `draft-status`; an overlay pinned to a draft is warned (`base-draft`).
 - A release's version may not be marked draft.
+- **`explains`**, a seventh alignment type: reference material (a source document, a textbook section) explains a concept or level, so that what is taught can be grounded in it.
 
 ## 0.1.0 (draft, 2026-10-29)
 

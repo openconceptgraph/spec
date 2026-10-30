@@ -107,3 +107,26 @@ describe("a pin to a draft bundle", () => {
     expect(r.warnings.map((w) => w.rule)).toEqual(["base-draft"]);
   });
 });
+
+describe("reference material", () => {
+  const explains = (d: Record<string, any>) => d.alignments.find((a: any) => a.alignmentType === "explains");
+
+  it("explains a concept or level, and nothing else", () => {
+    const r = validateOverlay(
+      edited(OVERLAY_DIR, (d) => {
+        const mistake = pinned().index.misconceptions[0]!;
+        Object.assign(explains(d), { target: mistake.id, targetKind: "misconception" });
+      }),
+      pinned(),
+    );
+    expect(errorRules(r)).toContain("alignment-target");
+  });
+
+  it("carries explains only where the profile allows it", () => {
+    const r = validateOverlay(
+      edited(OVERLAY_DIR, (d) => (d.profile.artefactKinds.find((k: any) => k.kind === "reference").alignments = ["covers"])),
+      pinned(),
+    );
+    expect(errorRules(r)).toEqual(["alignment-allowed"]);
+  });
+});

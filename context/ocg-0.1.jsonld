@@ -186,6 +186,7 @@
     "reveals": "ocg:reveals",
     "backfills": "ocg:backfills",
     "covers": "ocg:covers",
+    "explains": "ocg:explains",
     "Source": {
       "@id": "ocg:Source",
       "@context": {

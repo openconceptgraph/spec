@@ -21,7 +21,7 @@ placements.json    when each plan teaches each artefact
 - the client's `namespace`;
 - each **kind** of artefact it has, the alignment types that kind may carry, and the nearest schema.org/LRMI `learningResourceType`.
 
-Kinds are the client's own. A shared vocabulary of kinds will be agreed only once several clients' kinds can be compared, borrowing from schema.org/LRMI and, for assessment items, QTI.
+Kinds are the client's own. A shared vocabulary of kinds will be agreed only once several clients' kinds can be compared, borrowing from schema.org/LRMI and, for assessment items, QTI. A profile will usually have a kind for reference material, carrying `explains`, so that the sources a subject's facts are grounded in have a place beside the artefacts that teach.
 
 **Artefact.** Identifies one artefact:
 - its UUID, the client's namespace and its kind;
@@ -41,6 +41,7 @@ Kinds are the client's own. A shared vocabulary of kinds will be agreed only onc
 | `reveals` | misconception | Choosing it (usually a wrong option) shows the mistake. |
 | `backfills` | concept or level | It remedies a prerequisite the learner lacks. |
 | `covers` | statement or node | It covers official curriculum text directly. |
+| `explains` | concept or level | It is reference material that explains it: a source document, a textbook section, approved notes. What a lesson says can be grounded in it. |
 
 An alignment's status is the client's own (`proposed`, `confirmed`, `rejected`). Its target must be in the pinned release, which holds only confirmed base objects (a [draft bundle](release.md#draft-bundles) may also hold proposed ones).
 
